@@ -46,7 +46,9 @@ export default function Shop() {
           </div>
         </section>
 
-        <section className="bg-white border-b border-gray-200 py-8 sticky top-20 z-30 shadow-sm">
+        {/* MODIFIED: Removed sticky classes (sticky top-20 z-30 shadow-sm)
+             to allow the filter section to scroll naturally. */}
+        <section className="bg-white border-b border-gray-200 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex items-center gap-2">
@@ -55,22 +57,7 @@ export default function Shop() {
               </div>
 
               <div className="flex items-center gap-3">
-                {/* <button
-                  onClick={() => setViewMode("grid")}
-                  className={`p-2 rounded-lg transition-all ${
-                    viewMode === "grid" ? "bg-primary text-white" : "bg-gray-100 text-foreground hover:bg-gray-200"
-                  }`}
-                >
-                  <Grid3x3 size={20} />
-                </button> */}
-                {/* <button
-                  onClick={() => setViewMode("list")}
-                  className={`p-2 rounded-lg transition-all ${
-                    viewMode === "list" ? "bg-primary text-white" : "bg-gray-100 text-foreground hover:bg-gray-200"
-                  }`}
-                >
-                  <List size={20} />
-                </button> */}
+                {/* View Mode Buttons (Commented out) */}
               </div>
             </div>
 
