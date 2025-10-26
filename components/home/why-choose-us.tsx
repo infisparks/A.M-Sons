@@ -1,4 +1,4 @@
-import { Shield, Truck, Award, Users } from "lucide-react"
+import { Shield, Truck, Award, Users, CheckCircle } from "lucide-react"
 
 export default function WhyChooseUs() {
   const features = [
@@ -25,12 +25,15 @@ export default function WhyChooseUs() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-muted">
+    <section className="py-20 md:py-32 bg-linearto-b from-blue-50 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Why Choose A.M and Sons?</h2>
-          <p className="text-muted-foreground text-lg">
-            We are committed to providing the best construction materials and service
+        <div className="text-center mb-16">
+          <div className="inline-block mb-4">
+            <span className="text-primary font-semibold text-sm tracking-widest uppercase">Why Choose Us</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">Why A.M and Sons?</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            We are committed to providing the best construction materials and exceptional service to every customer
           </p>
         </div>
 
@@ -40,15 +43,18 @@ export default function WhyChooseUs() {
             return (
               <div
                 key={index}
-                className="bg-card p-6 rounded-lg text-center shadow-md hover:shadow-lg transition-shadow"
+                className="bg-white border border-gray-200 p-8 rounded-xl text-center shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary group"
               >
-                <div className="flex justify-center mb-4">
-                  <div className="bg-primary p-3 rounded-lg">
-                    <Icon className="text-primary-foreground" size={28} />
+                <div className="flex justify-center mb-6">
+                  <div className="bg-linear-to-br from-primary to-secondary p-4 rounded-xl group-hover:scale-110 transition-transform">
+                    <Icon className="text-white" size={32} />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-card-foreground mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                <div className="mt-6 flex justify-center">
+                  <CheckCircle size={20} className="text-primary" />
+                </div>
               </div>
             )
           })}

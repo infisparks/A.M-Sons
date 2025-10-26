@@ -1,9 +1,8 @@
 "use client"
 
 import type React from "react"
-
 import type { Product } from "@/lib/products"
-import { X } from "lucide-react"
+import { X, Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -31,99 +30,118 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-card rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-border sticky top-0 bg-card">
-          <h2 className="text-2xl font-bold text-card-foreground">{product.name}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-muted rounded transition-colors">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 sticky top-0 bg-white rounded-t-2xl z-10">
+          <div>
+            <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-1">{product.category}</p>
+            <h2 className="text-2xl font-bold text-foreground">{product.name}</h2>
+          </div>
+          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors" aria-label="Close">
             <X size={24} />
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {/* Product Image */}
-            <div className="relative h-64 md:h-80 bg-muted rounded-lg overflow-hidden">
+            <div className="relative h-80 bg-gray-100 rounded-xl overflow-hidden">
               <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
             </div>
 
             {/* Product Details */}
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
-              <p className="text-card-foreground mb-6">{product.description}</p>
+            <div className="space-y-6">
+              <div>
+                <p className="text-muted-foreground mb-3 leading-relaxed">{product.description}</p>
+              </div>
 
-              {/* Contact Info */}
-              <div className="bg-muted p-4 rounded-lg mb-6">
-                <h4 className="font-bold text-card-foreground mb-3">Contact Information</h4>
-                <div className="space-y-2 text-sm text-card-foreground">
-                  <p>
-                    <strong>Phone:</strong> +1 (555) 123-4567
-                  </p>
-                  <p>
-                    <strong>Email:</strong> info@amsons.com
-                  </p>
-                  <p>
-                    <strong>Address:</strong> 123 Industrial Ave, NY
-                  </p>
-                  <p>
-                    <strong>Hours:</strong> Mon-Fri 8AM-6PM, Sat 9AM-4PM
-                  </p>
+              <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200">
+                <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">
+                  <CheckCircle size={20} className="text-primary" />
+                  Contact Information
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <Phone size={18} className="text-primary shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Phone</p>
+                      <p className="font-semibold text-foreground">+1 (555) 123-4567</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail size={18} className="text-primary shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Email</p>
+                      <p className="font-semibold text-foreground">info@amsons.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MapPin size={18} className="text-primary shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Address</p>
+                      <p className="font-semibold text-foreground">123 Industrial Ave, NY</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock size={18} className="text-primary shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Hours</p>
+                      <p className="font-semibold text-foreground">Mon-Fri 8AM-6PM, Sat 9AM-4PM</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="border-t border-border pt-6">
-            <h4 className="text-xl font-bold text-card-foreground mb-4">Inquire About This Product</h4>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="border-t border-gray-200 pt-8">
+            <h4 className="text-2xl font-bold text-foreground mb-6">Inquire About This Product</h4>
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-card-foreground mb-1">Name</label>
+                <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
-                  placeholder="Your name"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-foreground transition-all"
+                  placeholder="Your full name"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-medium text-card-foreground mb-1">Email</label>
+                  <label className="block text-sm font-semibold text-foreground mb-2">Email Address</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-foreground transition-all"
                     placeholder="your@email.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-card-foreground mb-1">Phone</label>
+                  <label className="block text-sm font-semibold text-foreground mb-2">Phone Number</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-foreground transition-all"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-card-foreground mb-1">Message</label>
+                <label className="block text-sm font-semibold text-foreground mb-2">Message</label>
                 <textarea
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white text-foreground transition-all"
                   placeholder="Tell us about your inquiry..."
                   rows={4}
                 />
@@ -131,7 +149,7 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
 
               <button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-secondary transition-colors"
+                className="w-full bg-linear-to-r from-primary to-secondary text-white py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
               >
                 Send Inquiry
               </button>
