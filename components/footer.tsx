@@ -37,10 +37,11 @@ export default function Footer() {
                   />
                   <button
                     type="submit"
-                    className="px-8 py-4 bg-white text-blue-700 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 flex items-center gap-2 group"
+                    // UPDATED CLASSES: p-4 for a square button on mobile, sm:px-8 sm:py-4 for full size on desktop
+                    className="p-4 sm:px-8 sm:py-4 bg-white text-blue-700 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 flex items-center justify-center group"
                   >
                     <span className="hidden sm:inline">Subscribe</span>
-                    <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+                    <Send size={20} className="transition-transform sm:group-hover:translate-x-1" />
                   </button>
                 </form>
               </div>
@@ -132,6 +133,7 @@ export default function Footer() {
                 { label: "Nails & Fasteners", href: "/shop" },
                 { label: "Wire Materials", href: "/shop" },
                 { label: "Hardware", href: "/shop" },
+                { label: "Construction Materials", href: "/shop" },
               ].map((link) => (
                 <li key={link.label}>
                   <a

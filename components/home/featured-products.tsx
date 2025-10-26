@@ -45,7 +45,7 @@ export default function FeaturedProducts({ onProductClick }: FeaturedProductsPro
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {[
             { label: "Products", value: "500+", icon: "📦" },
             { label: "Happy Clients", value: "5000+", icon: "😊" },
@@ -63,12 +63,12 @@ export default function FeaturedProducts({ onProductClick }: FeaturedProductsPro
               <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onProductClick={onProductClick} />
+            <ProductCard key={product.id} product={product} onProductClick={onProductClick} viewMode={"grid"} />
           ))}
         </div>
 
