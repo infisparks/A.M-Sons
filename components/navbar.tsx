@@ -26,11 +26,13 @@ export default function Navbar() {
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <Phone size={14} />
-                <span>+1 (555) 123-4567</span>
+                <span>
+                  +91 8104870627
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} />
-                <span>info@amsons.com</span>
+                <span>amandsons9819@gmail.com</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -42,15 +44,14 @@ export default function Navbar() {
 
       {/* Main Navbar */}
       <nav
-        className={`bg-white border-b sticky top-0 z-50 transition-all duration-300 ${
-          scrolled ? "shadow-lg border-gray-200" : "border-gray-100 shadow-sm"
-        }`}
+        className={`bg-white border-b sticky top-0 z-50 transition-all duration-300 ${scrolled ? "shadow-lg border-gray-200" : "border-gray-100 shadow-sm"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-12 h-12">
+              <div className="relative w-23 h-23">
                 <Image
                   src="/logo-main-img.png"
                   alt="A.M and Sons Logo"

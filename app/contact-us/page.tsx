@@ -18,11 +18,46 @@ export default function ContactUs() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    // NOTE: In a real application, you would send formData to an API endpoint here.
     console.log("Contact form submitted:", formData)
     setSubmitted(true)
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
     setTimeout(() => setSubmitted(false), 5000)
   }
+
+  // --- Real Contact Information ---
+  const contactInfo = [
+    {
+      icon: Phone,
+      title: "Phone",
+      // Updated to include all three phone numbers
+      details: ["+91 8104870627", "+91 9930758369", "+91 9321392150"],
+      description: "Available during business hours",
+      color: "from-blue-500 to-blue-600",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-200",
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      // Updated with the real email address
+      details: ["amandsons9819@gmail.com"],
+      description: "We respond within 24 hours",
+      color: "from-purple-500 to-purple-600",
+      bgColor: "bg-purple-50",
+      borderColor: "border-purple-200",
+    },
+    {
+      icon: MapPin,
+      title: "Address",
+      details: ["123 Industrial Avenue", "New York, NY 10001"], // Keeping dummy address
+      description: "Visit our showroom",
+      color: "from-green-500 to-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
+    },
+  ]
+  // --------------------------------
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,14 +82,14 @@ export default function ContactUs() {
               <MessageCircle size={16} className="text-blue-200" />
               <span className="text-white font-semibold text-sm tracking-widest uppercase">Get in Touch</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Contact Our
               <span className="block bg-linear-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">
                 Expert Team
               </span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
               Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible
             </p>
@@ -90,35 +125,7 @@ export default function ContactUs() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {[
-                {
-                  icon: Phone,
-                  title: "Phone",
-                  details: ["+1 (555) 123-4567"],
-                  description: "Available during business hours",
-                  color: "from-blue-500 to-blue-600",
-                  bgColor: "bg-blue-50",
-                  borderColor: "border-blue-200",
-                },
-                {
-                  icon: Mail,
-                  title: "Email",
-                  details: ["info@amsons.com"],
-                  description: "We respond within 24 hours",
-                  color: "from-purple-500 to-purple-600",
-                  bgColor: "bg-purple-50",
-                  borderColor: "border-purple-200",
-                },
-                {
-                  icon: MapPin,
-                  title: "Address",
-                  details: ["123 Industrial Avenue", "New York, NY 10001"],
-                  description: "Visit our showroom",
-                  color: "from-green-500 to-green-600",
-                  bgColor: "bg-green-50",
-                  borderColor: "border-green-200",
-                },
-              ].map((item, idx) => {
+              {contactInfo.map((item, idx) => {
                 const Icon = item.icon
                 return (
                   <div key={idx} className="group relative">
@@ -364,10 +371,24 @@ export default function ContactUs() {
             </div>
 
             {/* Location Info Cards */}
+            {/* Location Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               {[
                 { icon: MapPin, title: "Address", value: "123 Industrial Ave, NY 10001" },
-                { icon: Phone, title: "Phone", value: "+1 (555) 123-4567" },
+                {
+                  icon: Phone,
+                  title: "Phone",
+                  // Updated to include all three phone numbers with a line break
+                  value: (
+                    <>
+                      +91 8104870627
+                      <br />
+                      +91 9930758369
+                      <br />
+                      +91 9321392150
+                    </>
+                  ),
+                },
                 { icon: Clock, title: "Hours", value: "Mon-Fri: 8AM-6PM" },
               ].map((info, idx) => {
                 const Icon = info.icon
@@ -375,6 +396,7 @@ export default function ContactUs() {
                   <div key={idx} className="bg-linear-to-br from-blue-50 to-blue-100 border-2 border-blue-200 p-6 rounded-2xl text-center">
                     <Icon size={32} className="text-blue-600 mx-auto mb-3" />
                     <p className="text-sm font-semibold text-gray-600 mb-1">{info.title}</p>
+                    {/* Ensure value handles both string and JSX */}
                     <p className="text-lg font-bold text-gray-900">{info.value}</p>
                   </div>
                 )

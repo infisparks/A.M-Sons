@@ -56,7 +56,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <div className="relative w-14 h-14">
+              <div className="relative w-23 h-23">
                 <Image
                   src="/logo-2-main-img.png"
                   alt="A.M and Sons Logo"
@@ -161,7 +161,13 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 mb-1">Phone</p>
-                  <p className="text-white font-medium">+1 (555) 123-4567</p>
+                  <p className="text-white font-medium">
+                      +91 8104870627
+                      <br />
+                      +91 9930758369
+                      <br />
+                      +91 9321392150
+                    </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 group">
@@ -170,7 +176,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 mb-1">Email</p>
-                  <p className="text-white font-medium">info@amsons.com</p>
+                  <p className="text-white font-medium">amandsons9819@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 group">
