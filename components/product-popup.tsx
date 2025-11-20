@@ -61,7 +61,7 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
             <div className="relative">
               <div className="relative h-96 bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
                 <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
-                
+
                 {/* Premium Badge */}
                 <div className="absolute top-4 right-4 bg-linear-to-r from-blue-600 to-blue-800 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2">
                   <Award size={16} />
@@ -129,7 +129,11 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
                     </div>
                     <div>
                       <p className="text-xs text-gray-400">Phone</p>
-                      <p className="font-semibold">+1 (555) 123-4567</p>
+                      <div className="font-semibold flex flex-col">
+                        <span>+91 8104870627</span>
+                        <span>+91 9930758369</span>
+                        <span>+91 9321392150</span>
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 group">
@@ -138,7 +142,7 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
                     </div>
                     <div>
                       <p className="text-xs text-gray-400">Email</p>
-                      <p className="font-semibold">info@amsons.com</p>
+                      <p className="font-semibold">amandsons9819@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 group">
