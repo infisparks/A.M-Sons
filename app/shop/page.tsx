@@ -24,6 +24,7 @@ export default function Shop() {
     "Tools",
     "Ductile Iron Grooved",
     "Catalogue Valve",
+    "Plumbing Catalogue",
   ]
 
   const filteredProducts =
