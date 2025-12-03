@@ -21,6 +21,8 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
 
   if (!product) return null
 
+  const isVideo = product.image?.toLowerCase().endsWith(".mp4")
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Form submitted:", formData)
@@ -60,7 +62,24 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
             {/* Product Image */}
             <div className="relative">
               <div className="relative h-96 bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
+                {isVideo ? (
+                  <video
+                    src={product.image}
+                    className="object-cover w-full h-full"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
+                  />
+                ) : (
+                  <Image
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                  />
+                )}
 
                 {/* Premium Badge */}
                 <div className="absolute top-4 right-4 bg-linear-to-r from-blue-600 to-blue-800 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg flex items-center gap-2">

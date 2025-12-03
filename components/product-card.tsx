@@ -31,6 +31,7 @@ export default function ProductCard({ product, onProductClick, viewMode }: Produ
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  const isVideo = product.image?.toLowerCase().endsWith(".mp4")
 
   // **Logic to force Grid View on mobile screens**
   const effectiveViewMode = isMobile ? "grid" : viewMode
@@ -52,13 +53,25 @@ export default function ProductCard({ product, onProductClick, viewMode }: Produ
               <span>Premium</span>
             </div>
           </div>
-          <Image
-            src={product.image || "/placeholder.svg"}
-            alt={product.name}
-            fill
-            // object-contain ensures the full image is visible
-            className="object-contain group-hover:scale-105 transition-transform duration-700 p-4"
-          />
+          {isVideo ? (
+            <video
+              src={product.image}
+              className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-700 p-4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+            />
+          ) : (
+            <Image
+              src={product.image || "/placeholder.svg"}
+              alt={product.name}
+              fill
+              // object-contain ensures the full image is visible
+              className="object-contain group-hover:scale-105 transition-transform duration-700 p-4"
+            />
+          )}
         </div>
 
         {/* Product Info for List View */}
@@ -135,13 +148,25 @@ export default function ProductCard({ product, onProductClick, viewMode }: Produ
         className="relative h-105 sm:h-105 md:h-110 lg:h-72 cursor-pointer overflow-hidden bg-linear-to-br from-gray-50 to-gray-100"
         onClick={() => onProductClick(product)}
       >
-        <Image
-          src={product.image || "/placeholder.svg"}
-          alt={product.name}
-          fill
-          // object-cover is suitable for grid view where cropping is acceptable for a consistent look
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-        />
+        {isVideo ? (
+          <video
+            src={product.image}
+            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+            autoPlay
+            loop
+            muted
+            playsInline
+            controls
+          />
+        ) : (
+          <Image
+            src={product.image || "/placeholder.svg"}
+            alt={product.name}
+            fill
+            // object-cover is suitable for grid view where cropping is acceptable for a consistent look
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+        )}
         
         {/* Gradient Overlay on Hover */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

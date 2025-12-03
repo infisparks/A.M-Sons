@@ -16,16 +16,17 @@ export default function Shop() {
 
   const categories = [
     "All",
-    "Safety Materials",
-    "Nails Materials",
-    "Wire Materials",
-    "Hardware",
     "Construction Materials",
     "Ductile Iron Grooved",
     "Catalogue Valve",
     "Plumbing Catalogue",
+    "Rotatory Actuator",
+    "Video",
+    "Safety Materials",
+    "Nails Materials",
+    "Wire Materials",
+    "Hardware",
     "Tools",
-   
   ]
 
   const filteredProducts =
