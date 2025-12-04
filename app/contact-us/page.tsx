@@ -5,6 +5,7 @@ import { useState } from "react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, MessageCircle, Headphones, MapPinned } from "lucide-react"
+import { createMessage } from "@/lib/firebase"
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -15,14 +16,33 @@ export default function ContactUs() {
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // NOTE: In a real application, you would send formData to an API endpoint here.
-    console.log("Contact form submitted:", formData)
-    setSubmitted(true)
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
-    setTimeout(() => setSubmitted(false), 5000)
+    try {
+      setSubmitting(true)
+      setError(null)
+
+      // Store message in Firebase Realtime Database under message/[uniqueId]
+      await createMessage({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      })
+
+      setSubmitted(true)
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch (err) {
+      console.error("Failed to submit message:", err)
+      setError("Something went wrong while sending your message. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   // --- Real Contact Information ---
@@ -244,6 +264,13 @@ export default function ContactUs() {
                 </div>
               )}
 
+              {/* Error Message */}
+              {error && (
+                <div className="mb-8 p-6 bg-red-50 border-2 border-red-200 rounded-2xl text-red-800 text-sm">
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div>
@@ -324,10 +351,11 @@ export default function ContactUs() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-linear-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 flex items-center justify-center gap-3 group"
+                  disabled={submitting}
+                  className="w-full bg-linear-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 disabled:opacity-70 disabled:cursor-not-allowed text-white py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105 flex items-center justify-center gap-3 group"
                 >
                   <Send size={22} className="group-hover:translate-x-1 transition-transform" />
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

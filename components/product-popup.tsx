@@ -5,6 +5,7 @@ import type { Product } from "@/lib/products"
 import { X, Phone, Mail, MapPin, Clock, CheckCircle, Star, Shield, Award } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
+import { createProductRequest } from "@/lib/firebase"
 
 interface ProductPopupProps {
   product: Product | null
@@ -18,17 +19,46 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
     phone: "",
     message: "",
   })
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [submitted, setSubmitted] = useState(false)
 
   if (!product) return null
 
   const isVideo = product.image?.toLowerCase().endsWith(".mp4")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    alert("Thank you for your inquiry! We will contact you soon.")
-    setFormData({ name: "", email: "", phone: "", message: "" })
-    onClose()
+
+    if (!product) return
+
+    try {
+      setSubmitting(true)
+      setError(null)
+
+      // Store product request in Firebase under product-request-details/[product.name]/[uniqueId]
+      await createProductRequest({
+        productName: product.name,
+        customerName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      })
+
+      setSubmitted(true)
+      setFormData({ name: "", email: "", phone: "", message: "" })
+
+      // Small delay so user can see success, then close
+      setTimeout(() => {
+        setSubmitted(false)
+        onClose()
+      }, 1500)
+    } catch (err) {
+      console.error("Failed to submit product request:", err)
+      setError("Something went wrong while sending your inquiry. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -195,6 +225,17 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto">
+              {submitted && (
+                <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-800">
+                  Your inquiry has been sent successfully.
+                </div>
+              )}
+
+              {error && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-800">
+                  {error}
+                </div>
+              )}
               <div>
                 <label className="block text-sm font-bold text-gray-900 mb-2">Full Name *</label>
                 <input
@@ -248,9 +289,10 @@ export default function ProductPopup({ product, onClose }: ProductPopupProps) {
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-linear-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105"
+                  disabled={submitting}
+                  className="flex-1 bg-linear-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 disabled:opacity-70 disabled:cursor-not-allowed text-white py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-105"
                 >
-                  Send Inquiry
+                  {submitting ? "Sending..." : "Send Inquiry"}
                 </button>
                 <button
                   type="button"
